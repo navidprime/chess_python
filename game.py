@@ -1,68 +1,37 @@
-import numpy as np
-from piece import *
+from player import *
 
-class Player:
+class Chess:
     
-    def __init__(self, color) -> None:
-        assert color in (1, -1)
+    def __init__(self) -> None:
+        self.white = Player(1)
+        self.black = Player(-1)
         
-        self.color = color
-        
-        pawn_y = 1
-        core_y = 0
+        self.board = self.white.get_board() + self.black.get_board()
+    
+    def move(self, color, x, y, new_x, new_y):
         if color == 1:
-            pawn_y = 6
-            core_y = 7
+            result = self.white.move(self.board, x,y,new_x,new_y)
+        else:
+            result = self.black.move(self.board, x,y,new_x,new_y)
         
-        self.pieces = {
-            'pawn': [Piece(x, pawn_y) for x in range(8)],
-            'rook': [Piece(x, core_y) for x in (0, 7)],
-            'knight': [Piece(x, core_y) for x in (1, 6)],
-            'bishop': [Piece(x, core_y) for x in (2, 5)],
-            'queen': [Piece(3, core_y)],
-            'king': [Piece(4, core_y)],
-        }
-    
-    def get_board(self):
-        board = np.zeros((8,8), dtype=np.int32)
+        if type(result) != bool:
+            self.board = result
+            return True
         
-        for obj in NameMapping:
-            for piece in self.pieces[obj.name.lower()]:
-                board[piece.y, piece.x] = obj.value * self.color
-        
-        return board
+        return False
 
-    def move(self, board, x, y, new_x, new_y):
-        
-        # validate both x and y
-        if not ((0 <= new_y < 8)\
-            and (0 <= new_x < 8)):
-            print('--*new_x and new_y are not valid')
-            return False
-        
-        if not ((0 <= y < 8)\
-            and (0 <= x < 8)):
-            print('--*x and y are not valid')
-            return False
-        
-        if new_y == y and new_x == x:
-            print('---*skiping move is not allowed')
-            return
-        
-        # move own piece
-        if (board[y, x] <= 0 and self.color == 1)\
-            or (board[y, x] >= 0 and self.color == -1):
-                print('--*can not move enmey pieces')
-                return False
-            
-        # assert piece rule
-        if not RuleMapping[abs(board[y, x])](self.color, board, x, y, new_x, new_y):
-            print(f'--*piece({abs(board[y, x])}) can not make that move')
-            return False
-        
-        # update board
-        board[new_y, new_x] = board[y,x]
-        board[y,x] = 0
-        
-        return board
-        
+
+chess = Chess()
+for c in [1, -1]*100:
+    result = False
+    while not result:
+        # NOTE: c always stayes in '1'
+        turn = 'White' if c == 1 else 'Black'
+        print(f'---{turn} Turn---')
+        print(chess.board)
+        x = int(input('x   : '))
+        y = int(input('y   : '))
+        new_x = int(input('newx: '))
+        new_y = int(input('newy: '))
+        result = chess.move(c, x, y, new_x, new_y)
+    
