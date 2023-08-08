@@ -2,9 +2,9 @@ from player import *
 
 class Chess:
     
-    def __init__(self) -> None:
-        self.white = Player(1)
-        self.black = Player(-1)
+    def __init__(self, print_:bool=True) -> None:
+        self.white = Player(1, print_)
+        self.black = Player(-1, print_)
         
         self.board = self.white.get_board() + self.black.get_board()
     
@@ -19,19 +19,3 @@ class Chess:
             return True
         
         return False
-
-
-chess = Chess()
-for c in [1, -1]*100:
-    result = False
-    while not result:
-        # NOTE: c always stayes in '1'
-        turn = 'White' if c == 1 else 'Black'
-        print(f'---{turn} Turn---')
-        print(chess.board)
-        x = int(input('x   : '))
-        y = int(input('y   : '))
-        new_x = int(input('newx: '))
-        new_y = int(input('newy: '))
-        result = chess.move(c, x, y, new_x, new_y)
-    

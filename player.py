@@ -3,10 +3,11 @@ from piece import *
 
 class Player:
     
-    def __init__(self, color) -> None:
+    def __init__(self, color, print_) -> None:
         assert color in (1, -1)
         
         self.color = color
+        self.print_ = print_
         
         pawn_y = 1
         core_y = 0
@@ -37,29 +38,34 @@ class Player:
         # validate both x and y
         if not ((0 <= new_y < 8)\
             and (0 <= new_x < 8)):
-            print('--*new_x and new_y are not valid')
+            if self.print_:
+                print('--*new_x and new_y are not valid')
             return False
         
         if not ((0 <= y < 8)\
             and (0 <= x < 8)):
-            print('--*x and y are not valid')
+            if self.print_:
+                print('--*x and y are not valid')
             return False
         
         if new_y == y and new_x == x:
-            print('---*skiping move is not allowed')
+            if self.print_:
+                print('---*skiping move is not allowed')
             return False
         
         # move own piece
         if (board[y, x] <= 0 and self.color == 1)\
             or (board[y, x] >= 0 and self.color == -1):
-                print('--*can not move enmey pieces')
+                if self.print_:
+                    print('--*can not move enmey pieces')
                 return False
         
         board = board.copy()
         
         # assert piece rule
         if not RuleMapping[abs(board[y, x])](self.color, board, x, y, new_x, new_y):
-            print(f'--*piece({abs(board[y, x])}) can not make that move')
+            if self.print_:
+                print(f'--*piece({abs(board[y, x])}) can not make that move')
             return False
         
         # update board
