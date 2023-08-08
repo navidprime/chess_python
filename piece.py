@@ -37,8 +37,10 @@ def pawn_rule(color, board, x,y,newx,newy):
                 return True
         else:
             is_first_move = True if y == 1 else False
-            
+
             if is_first_move and newy-y == 2 and board[newy, newx]==0 and board[newy-1, newx] ==0:
+                return True
+            elif newy-y == 1 and board[newy, newx] == 0:
                 return True
     
         return False
@@ -53,6 +55,30 @@ def knight_rule(color, board, x,y,newx,newy):
         return True
     
 def bishop_rule(color, board, x,y,newx,newy):
+    if x == newx or y == newy: 
+        return False
+    
+    friend_indexes = [(i)*color for i in range(1, 7)]
+    enemy_indexes = [(i)*color*-1 for i in range(1, 7)]
+    
+    x_sign = int((x-newx)/(abs(x-newx)))
+    y_sign = int((y-newy)/(abs(y-newy)))
+    
+    # if y < 0 -> go up
+    # if y > 0 -> go down
+    # if x < 0 -> left
+    # if x > 0 -> right
+    
+    # x-newx == y-newy
+    print(0, abs(x-newx), int((x-newx)/(abs(x-newx))))
+    for i in range(0, abs(x-newx), int((x-newx)/(abs(x-newx)))):
+        if board[y+(i*y_sign), x+(i*x_sign)] == 0 or (y+(i*y_sign) == y and x+(i*x_sign) == x):
+            continue
+        if board[y+(i*y_sign), x+(i*x_sign)] in enemy_indexes and i != abs(x-newx)-1:
+            return False
+        if board[y+(i*y_sign), x+(i*x_sign)] in friend_indexes:
+            return False
+    
     return True
 def rook_rule(color, board, x,y,newx,newy):
     return True
