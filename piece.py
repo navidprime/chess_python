@@ -70,7 +70,6 @@ def bishop_rule(color, board, x,y,newx,newy):
     # if x > 0 -> right
     
     # x-newx == y-newy
-    print(0, abs(x-newx), int((x-newx)/(abs(x-newx))))
     for i in range(0, abs(x-newx), int((x-newx)/(abs(x-newx)))):
         if board[y+(i*y_sign), x+(i*x_sign)] == 0 or (y+(i*y_sign) == y and x+(i*x_sign) == x):
             continue
