@@ -31,20 +31,27 @@ def pawn_rule(color, board, x,y,newx,newy):
         if color == 1:
             is_first_move = True if y == 6 else False
             
-            if is_first_move and y-newy == 2 and board[newx ,newy] == 0 and board[newx, newy+1]== 0:
+            if is_first_move and y-newy == 2 and board[newy ,newx] == 0 and board[newy+1, newx]== 0:
                 return True
             elif y-newy == 1 and board[newx, newy] == 0:
                 return True
         else:
             is_first_move = True if y == 1 else False
             
-            if is_first_move and newy-y == 2 and board[newx, newy]==0 and board[newx, newy-1] ==0:
+            if is_first_move and newy-y == 2 and board[newy, newx]==0 and board[newy-1, newx] ==0:
                 return True
     
         return False
         
 def knight_rule(color, board, x,y,newx,newy):
-    return True
+    if not abs(x-newx) + abs(y-newy) == 3:
+        return False
+
+    friend_indexes = [(i)*color for i in range(1, 7)]
+    
+    if board[newy, newx] not in friend_indexes:
+        return True
+    
 def bishop_rule(color, board, x,y,newx,newy):
     return True
 def rook_rule(color, board, x,y,newx,newy):
