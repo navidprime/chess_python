@@ -124,9 +124,15 @@ def rook_rule(color, board, x,y,newx,newy):
         return True
     
 def queen_rule(color, board, x,y,newx,newy):
-    return True
+    if bishop_rule(color, board, x,y,newx,newy) or rook_rule(color, board, x,y,newx,newy):
+        return True
+    return False
+
 def king_rule(color, board, x,y,newx,newy):
-    return True
+    if (bishop_rule(color, board, x,y,newx,newy) or rook_rule(color, board, x,y,newx,newy))\
+        and (abs(newx-x) in (0, 1) and abs(newy-y) in (0, 1)):
+        return True
+    return False
 
 RuleMapping = [
     True,
