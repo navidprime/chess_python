@@ -85,7 +85,6 @@ def bishop_rule(color, board, x,y,newx,newy):
 
 def rook_rule(color, board, x,y,newx,newy):
     if not ((x == newx and y != newy) or (y == newy and x != newx)):
-        print('here')
         return False
     
     friend_indexes = [(i)*color for i in range(1, 7)]
