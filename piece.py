@@ -34,7 +34,7 @@ def pawn_rule(color, board, x,y,newx,newy):
             
             if is_first_move and y-newy == 2 and board[newy ,newx] == 0 and board[newy+1, newx]== 0:
                 return True
-            elif y-newy == 1 and board[newx, newy] == 0:
+            elif y-newy == 1 and board[newy, newx] == 0:
                 return True
         else:
             is_first_move = True if y == 1 else False
@@ -49,14 +49,18 @@ def pawn_rule(color, board, x,y,newx,newy):
 def knight_rule(color, board, x,y,newx,newy):
     if not abs(x-newx) + abs(y-newy) == 3:
         return False
-
+    if abs(x-newx) == 3 or abs(y-newy) == 3:
+        return False
+    
     friend_indexes = [(i)*color for i in range(1, 7)]
     
     if board[newy, newx] not in friend_indexes:
         return True
     
 def bishop_rule(color, board, x,y,newx,newy):
-    if (x == newx or y == newy) and abs(x-newx) != abs(y-newy):
+    if (x == newx or y == newy):
+        return False
+    if abs(x-newx) != abs(y-newy):
         return False
     
     friend_indexes = [(i)*color for i in range(1, 7)]
@@ -69,17 +73,20 @@ def bishop_rule(color, board, x,y,newx,newy):
     # if y > 0 -> go down
     # if x < 0 -> left
     # if x > 0 -> right
-    
     # x-newx == y-newy
-    # print(0, abs(x-newx), int((x-newx)/(abs(x-newx))))
-    for i in range(0, abs(x-newx), int((x-newx)/(abs(x-newx)))):
-        # print(y+(i*y_sign), x+(i*x_sign), board[y+(i*y_sign), x+(i*x_sign)])
+    for i in range(0, abs(x-newx), 1):
         if board[y+(i*y_sign), x+(i*x_sign)] == 0 or (y+(i*y_sign) == y and x+(i*x_sign) == x):
             continue
         if board[y+(i*y_sign), x+(i*x_sign)] in enemy_indexes and i != abs(x-newx):
             return False
         if board[y+(i*y_sign), x+(i*x_sign)] in friend_indexes:
             return False
+    
+    if abs(x-newx) == 1:
+        if board[newy, newx] in friend_indexes:
+            return False
+        else:
+            return True
     
     return True
 
