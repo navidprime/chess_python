@@ -56,14 +56,14 @@ def knight_rule(color, board, x,y,newx,newy):
         return True
     
 def bishop_rule(color, board, x,y,newx,newy):
-    if x == newx or y == newy: 
+    if (x == newx or y == newy) and abs(x-newx) != abs(y-newy):
         return False
     
     friend_indexes = [(i)*color for i in range(1, 7)]
     enemy_indexes = [(i)*color*-1 for i in range(1, 7)]
     
-    x_sign = int((x-newx)/(abs(x-newx)))
-    y_sign = int((y-newy)/(abs(y-newy)))
+    x_sign = 1 if x < newx else -1
+    y_sign = 1 if y < newy else -1
     
     # if y < 0 -> go up
     # if y > 0 -> go down
@@ -71,15 +71,18 @@ def bishop_rule(color, board, x,y,newx,newy):
     # if x > 0 -> right
     
     # x-newx == y-newy
+    # print(0, abs(x-newx), int((x-newx)/(abs(x-newx))))
     for i in range(0, abs(x-newx), int((x-newx)/(abs(x-newx)))):
+        # print(y+(i*y_sign), x+(i*x_sign), board[y+(i*y_sign), x+(i*x_sign)])
         if board[y+(i*y_sign), x+(i*x_sign)] == 0 or (y+(i*y_sign) == y and x+(i*x_sign) == x):
             continue
-        if board[y+(i*y_sign), x+(i*x_sign)] in enemy_indexes and i != abs(x-newx)-1:
+        if board[y+(i*y_sign), x+(i*x_sign)] in enemy_indexes and i != abs(x-newx):
             return False
         if board[y+(i*y_sign), x+(i*x_sign)] in friend_indexes:
             return False
     
     return True
+
 def rook_rule(color, board, x,y,newx,newy):
     if not ((x == newx and y != newy) or (y == newy and x != newx)):
         print('here')
