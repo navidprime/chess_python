@@ -48,17 +48,24 @@ class Player:
                 print('--*x and y are not valid')
             return False
         
-        if new_y == y and new_x == x:
+        if board[y, x] == 0:
             if self.print_:
-                print('---*skiping move is not allowed')
-            return False
+                print('--*can not select empty space for move')
         
         # move own piece
         if (board[y, x] <= 0 and self.color == 1)\
             or (board[y, x] >= 0 and self.color == -1):
                 if self.print_:
-                    print('--*can not move enmey pieces')
+                    turn = 'white' if self.color == 1 else 'black'
+                    turn_ = 'black' if turn=='white' else 'white'
+                    print(f'--*it is {turn} turn, but trying to move {turn_} pieces')
                 return False
+            
+        if new_y == y and new_x == x:
+            if self.print_:
+                print('--*skiping move is not allowed')
+            return False
+        
         
         board = board.copy()
         
