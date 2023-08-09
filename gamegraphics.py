@@ -44,6 +44,8 @@ class Game:
 
         self.screen = pygame.display.set_mode((self.w, self.h))
 
+        pygame.display.set_caption('chess game by @ostadnavid')
+        
         self.clock = pygame.time.Clock()
 
         self.board_bg = np.tile(np.array([[0,1],[1,0]]), (4,4))
