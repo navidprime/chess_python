@@ -20,3 +20,4 @@ the main game is written in 2d array, and i used pygame to make graphics.
 
 currently there are some bugs in piece rules, and i have'nt implemented the game ending.
 
+i used https://www.piskelapp.com/ to make the piece pictures
