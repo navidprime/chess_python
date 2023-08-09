@@ -1,4 +1,5 @@
 from enum import Enum
+import numpy as np
 
 class NameMapping(Enum):
     pawn = 1
@@ -80,7 +81,48 @@ def bishop_rule(color, board, x,y,newx,newy):
     
     return True
 def rook_rule(color, board, x,y,newx,newy):
-    return True
+    if not ((x == newx and y != newy) or (y == newy and x != newx)):
+        print('here')
+        return False
+    
+    friend_indexes = [(i)*color for i in range(1, 7)]
+    enemy_indexes = [(i)*color*-1 for i in range(1, 7)]
+    
+    is_x_move = True if (y == newy and x != newx) else False
+    
+    if is_x_move:
+        is_move_left = True if x - newx > 0 else False
+        
+        if is_move_left:
+            for i in range(newx, x+1):
+                if board[y, i] in friend_indexes and i!=x:
+                    return False
+                if board[y, i] in enemy_indexes and i!=newx:
+                    return False
+        else:
+            for i in range(x, newx+1):
+                if board[y, i] in friend_indexes and i!=x:
+                    return False
+                if board[y, i] in enemy_indexes and i!=newx:
+                    return False
+        return True
+    else:
+        is_move_up = True if y - newy > 0 else False
+        
+        if is_move_up:
+            for i in range(newy, y+1):
+                if board[i, x] in friend_indexes and i!=y:
+                    return False
+                if board[i, x] in enemy_indexes and i!=newy:
+                    return False
+        else:
+            for i in range(y, newy+1):
+                if board[i, x] in friend_indexes and i!=y:
+                    return False
+                if board[i, x] in enemy_indexes and i!=newy:
+                    return False
+        return True
+    
 def queen_rule(color, board, x,y,newx,newy):
     return True
 def king_rule(color, board, x,y,newx,newy):
