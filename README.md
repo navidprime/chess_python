@@ -14,10 +14,13 @@ the main game is written in 2d array, and i used pygame to make graphics.
 
 ## screen shots
 
-![screenshot](./media/screenshot1.png)
+![screenshot](./media/screenshot2.png)
 
 ## notes
 
-currently there are some bugs in piece rules, and i have'nt implemented the game ending.
+for simpilicity i changed few things.
+
+- if you want to end the game you have to kill the enmey king piece
+- when your piece reaches to your enemy's last layer, it will became queen now
 
 i used https://www.piskelapp.com/ to make the piece pictures
