@@ -16,6 +16,9 @@ class Chess:
             result = self.black.move(self.board, x,y,new_x,new_y)
         
         if type(result) != bool:
+            
+            
+            
             self.board = result
             return True
         

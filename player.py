@@ -73,10 +73,19 @@ class Player:
             if self.print_:
                 print(f'--*piece({abs(board[y, x])}) can not make that move')
             return False
+
+        pawn_end_layer = 0 if self.color == 1 else 7
+        if board[y, x] == 1*self.color and new_y == pawn_end_layer:
+            # now pawn becames queen
+            
         
-        # update board
-        board[new_y, new_x] = board[y,x]
-        board[y,x] = 0
+            # update board
+            board[new_y, new_x] = 5*self.color
+            board[y,x] = 0
+        else:
+            # update board
+            board[new_y, new_x] = board[y,x]
+            board[y,x] = 0
         
         return board
         
