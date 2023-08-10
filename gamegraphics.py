@@ -38,6 +38,9 @@ class Game:
         self.border2 = self.get_img_fixed(pygame.image.load('./media/border2.png'))
         self.border3 = self.get_img_fixed(pygame.image.load('./media/border3.png'))
         
+        # self.icon = 
+        pygame.display.set_icon(self.get_img_fixed(pygame.image.load('./media/icon.png')))
+        
         self.chess = Chess(print_)
         
         pygame.init()
