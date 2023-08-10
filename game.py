@@ -6,6 +6,7 @@ class Chess:
         self.white = Player(1, print_)
         self.black = Player(-1, print_)
         
+        
         self.board = self.white.get_board() + self.black.get_board()
     
     def move(self, color, x, y, new_x, new_y):
@@ -19,3 +20,14 @@ class Chess:
             return True
         
         return False
+    
+    def reset_board(self):
+        self.board = self.white.get_board() + self.black.get_board()
+
+    def check_king(self):
+        if not np.any(self.board == 6):
+            return 1 # white kind died
+        elif not np.any(self.board == -6):
+            return -1 # black king died
+        else:
+            return 0

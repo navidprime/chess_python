@@ -2,6 +2,15 @@ from game import Chess
 
 chess = Chess(print_=True)
 for c in [1, -1]*100:
+    if chess.check_king() != 0:
+        if chess.check_king() == 1:
+            print('--white lose--')
+        else:
+            print('---black lose---')
+        
+        chess.reset_board()
+        continue
+        
     result = False
     while not result:
         turn = 'White' if c == 1 else 'Black'

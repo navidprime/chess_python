@@ -66,7 +66,6 @@ class Player:
                 print('--*skiping move is not allowed')
             return False
         
-        
         board = board.copy()
         
         # assert piece rule
