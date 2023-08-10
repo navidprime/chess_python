@@ -81,11 +81,15 @@ class Game:
             if event.type == pygame.QUIT:
                 exit()
         
-        if self.chess.check_king() != 0:
-            if self.chess.check_king() == 1:
+        king_died = self.chess.check_king()
+        if king_died != 0:
+            if king_died == 1:
                 pass # white king died. do something
             else:
                 pass # black king died. do something
+            
+            # print(self.chess.n_white_win)
+            # print(self.chess.n_black_win)
             
             self.chess.reset_board()
             self.turn = 1
