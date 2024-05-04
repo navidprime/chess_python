@@ -47,7 +47,7 @@ class Game:
 
         self.screen = pygame.display.set_mode((self.w, self.h))
 
-        pygame.display.set_caption('chess game by @ostadnavid')
+        pygame.display.set_caption('chess game by @navidprime')
         
         self.clock = pygame.time.Clock()
 
